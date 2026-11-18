@@ -13,7 +13,7 @@ MOOD_VECTORS = {
     "romantic": [0.55, 0.40, 0.50, 0.60, 0.40, 0.50],
 }
 def dedupe(df):
-    # brackets aur " - Live/Remix/From..." wala hissa hatake naam compare karo
+    # brackets aur " - Live/Remix/From..." 
     base = (df["track_name"]
             .str.replace(r"\s*[\(\[].*?[\)\]]", "", regex=True)
             .str.replace(r"\s+-\s.*$", "", regex=True)
@@ -29,11 +29,10 @@ def recommend(data, mood_probs, industry="Both", top_n=10):
     dist = np.linalg.norm(diff, axis=1)
 
     out = songs.assign(distance=dist).sort_values("distance")
-    out = dedupe(out)                                  # same gaane ke versions hatao
-    out = out.groupby("artist_name").head(3)           # ek artist ke max 3 gaane
+    out = dedupe(out)                                  
+    out = out.groupby("artist_name").head(3)          
     out = out.sort_values("distance")
 
-    # Top 3x gaano ka pool banao, usme se weighted random chuno
     pool = out.head(top_n * 3)
     w = np.exp(-(pool["distance"].values - pool["distance"].min()) / 0.15)
     w = w / w.sum()

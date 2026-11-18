@@ -25,5 +25,4 @@ def rec(
     return {"moods": probs, "songs": songs.to_dict("records")}
 
 
-# Sabse last mein rakhna
 app.mount("/", StaticFiles(directory="frontend", html=True), name="static")

@@ -15,7 +15,6 @@ MOOD_PROMPTS = {
 }
 
 def get_mood_probs(image, temperature=2.0):
-    # image: PIL image ya file path
     if isinstance(image, str):
         image = Image.open(image)
     image = image.convert("RGB")

@@ -25,7 +25,6 @@ data = pd.concat([bolly, holly]).drop_duplicates(subset="track_id").reset_index(
 
 data = data[["track_id", "track_name", "artist_name", "industry"] + FEATURES]
 
-# Har industry ke andar alag normalize (0-1)
 for ind in data["industry"].unique():
     mask = data["industry"] == ind
     data.loc[mask, FEATURES] = MinMaxScaler().fit_transform(data.loc[mask, FEATURES])
