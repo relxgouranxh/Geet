@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geet</title>
+  <h1>Gee<span>t</span></h1>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg"><span class="orb o1"></span><span class="orb o2"></span><span class="grid"></span></div>
+
+  <main>
+    <header>
+      <h1>Geet</h1>
+      <p>Upload a photo. Get the Song</p>
+    </header>
+
+    <section class="panel glass">
+      <div id="drop" class="drop">
+        <div id="hint">
+          <div class="icon">＋</div>
+          <strong>Drop a photo here</strong>
+          <small>or click to browse</small>
+        </div>
+        <img id="preview" hidden alt="preview">
+        <span class="scan"></span>
+        <input type="file" id="file" accept="image/*" hidden>
+      </div>
+
+      <label>Industry</label>
+      <div class="pills" data-key="industry">
+        <button data-v="Both" class="on">Both</button>
+        <button data-v="Bollywood">Bollywood</button>
+        <button data-v="Hollywood">Hollywood</button>
+      </div>
+
+      <div class="actions">
+        <button id="go" class="primary" disabled>Find songs</button>
+        <button id="shuffle" class="ghost" hidden>↻ Shuffle</button>
+      </div>
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section id="results" hidden>
+      <h2>Photo mood</h2>
+      <div id="moods" class="glass box"></div>
+      <h2>Songs for you</h2>
+      <div id="songs"></div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
