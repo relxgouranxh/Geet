@@ -1,6 +1,6 @@
 const $ = (s) => document.querySelector(s);
-const state = { industry: "Both"};
-const EMOJI = ["happy", "calm" , "sad" , "party", "romantic"];
+const state = { industry: "Both" };
+const EMOJI = { happy: "😄", calm: "😌", sad: "😢", party: "🎉", romantic: "💖" };
 let file = null;
 
 // ---------- Upload ----------
@@ -38,29 +38,33 @@ document.querySelectorAll(".pills").forEach((group) => {
 async function run() {
   if (!file) return;
   const panel = document.querySelector(".panel");
-  const err = $("#error");
+  const err = $("#error"), status = $("#status");
   err.hidden = true;
   panel.classList.add("loading");
-  $("#drop").classList.add("scanning");  
-  $("#go").textContent = "Searching";
-
-  const fd = new FormData();
-  fd.append("image", file);
-  fd.append("industry", state.industry);
+  $("#drop").classList.add("scanning");
+  $("#go").textContent = "Searching...";
+  status.textContent = "Reading the mood of your photo...";
+  status.hidden = false;
 
   try {
+    const fd = new FormData();
+    fd.append("image", file);
+    fd.append("industry", state.industry);
+
     const res = await fetch("/recommend", { method: "POST", body: fd });
     const json = await res.json();
     if (!res.ok) throw new Error(json.detail || "Server error");
+
     renderMoods(json.moods);
     renderSongs(json.songs);
     $("#results").hidden = false;
     $("#shuffle").hidden = false;
     $("#results").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
-    err.textContent = "Error: " + e.message;
+    err.textContent = "Error: " + (e.message || "Something went wrong");
     err.hidden = false;
   } finally {
+    status.hidden = true;
     panel.classList.remove("loading");
     $("#drop").classList.remove("scanning");
     $("#go").textContent = "Find songs";
@@ -68,7 +72,8 @@ async function run() {
 }
 
 $("#go").onclick = run;
-$("#shuffle").onclick = run;   
+$("#shuffle").onclick = run;   // same photo, naye random songs
+
 // ---------- Render ----------
 function renderMoods(moods) {
   const box = $("#moods");
@@ -86,7 +91,7 @@ function renderMoods(moods) {
 function renderSongs(songs) {
   const box = $("#songs");
   box.innerHTML = "";
-  songs.forEach((s,i) => {
+  songs.forEach((s, i) => {
     const div = document.createElement("div");
     div.className = "song";
     div.style.animationDelay = `${i * 70}ms`;
