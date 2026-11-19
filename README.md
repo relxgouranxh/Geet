@@ -1,5 +1,9 @@
 # Geet 🎧
 
+
+https://github.com/user-attachments/assets/d5c04514-9ae4-4a13-9ff0-f038ecdc9261
+
+
 Upload a photo and get songs that match its mood. Choose Bollywood, Hollywood, or both.
 
 > **Status: Prototype.** This is a proof of concept, not a full music search engine. It does **not** cover all songs. See [Dataset scope](#dataset-scope) below.
